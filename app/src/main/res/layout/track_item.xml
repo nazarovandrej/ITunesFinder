@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:padding="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/cover_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small"
+        tools:src="@android:drawable/btn_star"/>
+
+    <TextView
+        android:layout_alignTop="@+id/cover_image_view"
+        android:id="@+id/artist_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/cover_image_view"
+        android:layout_toRightOf="@+id/cover_image_view"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        tools:text="artist name"/>
+
+    <TextView
+        android:layout_alignBottom="@id/cover_image_view"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:id="@+id/track_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="track name"
+        android:layout_below="@+id/artist_name_text_view"
+        android:layout_toRightOf="@+id/cover_image_view"
+        android:layout_toEndOf="@+id/cover_image_view"/>
+
+    <View
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_below="@+id/track_name_text_view"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"/>
+
+</RelativeLayout>
