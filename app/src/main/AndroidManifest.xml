@@ -29,6 +29,10 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
         </activity>
+        <activity
+            android:name=".TrackDetailActivity"
+            android:configChanges="orientation|screenSize">
+        </activity>
     </application>
 
 </manifest>

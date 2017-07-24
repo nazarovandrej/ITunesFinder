@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="@dimen/padding_small"
+              android:orientation="horizontal"
+              tools:context="com.github.andrejnazarov.itunesfinder.MusicPlayerFragment">
+
+    <Button
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"/>
+
+    <Button
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:id="@+id/pause_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/play_button"
+        android:layout_toRightOf="@+id/play_button"
+        android:text="@string/pause"/>
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/seek_bar"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.github.andrejnazarov.itunesfinder.TrackDetailActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:padding="@dimen/padding_small"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/cover_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_small"
+                tools:src="@android:drawable/btn_star"/>
+
+            <TextView
+                android:layout_alignTop="@+id/cover_image_view"
+                android:id="@+id/artist_name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/cover_image_view"
+                android:layout_toRightOf="@+id/cover_image_view"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                tools:text="artist name"/>
+
+            <TextView
+                tools:text="$1.5"
+                android:id="@+id/price_text_view"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/artist_name_text_view"
+                android:layout_toRightOf="@+id/cover_image_view"
+                android:layout_toEndOf="@+id/cover_image_view"/>
+
+            <TextView
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:id="@+id/track_name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="track name"
+                android:layout_below="@+id/price_text_view"
+                android:layout_toRightOf="@+id/cover_image_view"
+                android:layout_toEndOf="@+id/cover_image_view"/>
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_weight="1"
+            android:id="@+id/music_player_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/artist_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"/>
+
+</LinearLayout>
