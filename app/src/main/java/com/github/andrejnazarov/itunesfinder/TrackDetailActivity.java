@@ -68,7 +68,7 @@ public class TrackDetailActivity extends AppCompatActivity {
     }
 
     private void getDataFromIntent() {
-        mTrack = (Track) getIntent().getExtras().getSerializable(EXTRA_TRACK);
+        mTrack = getIntent().getExtras().getParcelable(EXTRA_TRACK);
     }
 
     private void setDataToViews() {
