@@ -36,10 +36,6 @@ public class MainFragment extends Fragment implements TrackClickListener{
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    public MainFragment() {
-        // Required empty public constructor
-    }
-
     public static MainFragment newInstance(TracksResponse response) {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();

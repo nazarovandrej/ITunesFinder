@@ -26,10 +26,6 @@ public class ArtistProfileFragment extends Fragment {
 
     private String mProfileUrl;
 
-    public ArtistProfileFragment() {
-        // Required empty public constructor
-    }
-
     public static ArtistProfileFragment newInstance(String param1) {
         ArtistProfileFragment fragment = new ArtistProfileFragment();
         Bundle args = new Bundle();
