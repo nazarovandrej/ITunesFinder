@@ -18,6 +18,8 @@
             android:layout_height="wrap_content"/>
     </android.support.v7.widget.Toolbar>
 
+    <include layout="@layout/progress_bar"/>
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
