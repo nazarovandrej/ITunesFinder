@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  *
  * @author Nazarov on 23.07.17
  */
-public class MainFragment extends Fragment implements TrackClickListener{
+public class MainFragment extends Fragment implements TrackClickListener {
 
     public static final String TAG = MainFragment.class.getSimpleName();
     private static final String EXTRA_TRACKS_RESPONSE = "extra_tracks_response";
@@ -47,12 +47,7 @@ public class MainFragment extends Fragment implements TrackClickListener{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnItemClickListener) {
-            mListener = (OnItemClickListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnItemClickListener");
-        }
+        mListener = (OnItemClickListener) getActivity();
     }
 
     @Override
@@ -61,8 +56,6 @@ public class MainFragment extends Fragment implements TrackClickListener{
         if (getArguments() != null) {
             mTracksResponse = getArguments().getParcelable(EXTRA_TRACKS_RESPONSE);
             mAdapter = new TrackAdapter(mTracksResponse, this);
-        } else {
-            mAdapter = new TrackAdapter(new TracksResponse(), this);
         }
     }
 

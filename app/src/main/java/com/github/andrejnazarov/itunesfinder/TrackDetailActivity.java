@@ -59,14 +59,6 @@ public class TrackDetailActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        MusicPlayerFragment fragment =
-                ((MusicPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.music_player_container));
-        fragment.onBackPressed();
-    }
-
     private void getDataFromIntent() {
         mTrack = getIntent().getExtras().getParcelable(EXTRA_TRACK);
     }

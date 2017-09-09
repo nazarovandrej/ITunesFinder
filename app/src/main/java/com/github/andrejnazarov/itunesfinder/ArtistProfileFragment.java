@@ -26,10 +26,10 @@ public class ArtistProfileFragment extends Fragment {
 
     private String mProfileUrl;
 
-    public static ArtistProfileFragment newInstance(String param1) {
+    public static ArtistProfileFragment newInstance(String profileUrl) {
         ArtistProfileFragment fragment = new ArtistProfileFragment();
         Bundle args = new Bundle();
-        args.putString(EXTRA_PROFILE_URL, param1);
+        args.putString(EXTRA_PROFILE_URL, profileUrl);
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,14 +44,13 @@ public class ArtistProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_artist_profile, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        return inflater.inflate(R.layout.fragment_artist_profile, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
         mWebView.loadUrl(mProfileUrl);
         mWebView.setWebViewClient(new WebViewClient());
     }
