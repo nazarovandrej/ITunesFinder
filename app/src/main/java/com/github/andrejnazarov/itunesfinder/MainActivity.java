@@ -4,38 +4,33 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.github.andrejnazarov.itunesfinder.bean.Track;
 import com.github.andrejnazarov.itunesfinder.bean.TracksResponse;
-import com.github.andrejnazarov.itunesfinder.net.ApiClient;
-import com.github.andrejnazarov.itunesfinder.net.TrackService;
-import com.github.andrejnazarov.itunesfinder.utils.Utils;
+import com.github.andrejnazarov.itunesfinder.presenter.MainPresenter;
+import com.github.andrejnazarov.itunesfinder.presenter.MainPresenterImpl;
+import com.github.andrejnazarov.itunesfinder.view.MainView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Main Activity contains search view and container for data
  *
  * @author Nazarov on 23.07.17
  */
-public class MainActivity extends AppCompatActivity implements MainFragment.OnItemClickListener {
-
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class MainActivity extends AppCompatActivity implements MainView,
+        MainFragment.OnItemClickListener,
+        SearchView.OnQueryTextListener {
 
     @BindView(R.id.search)
     SearchView mSearchView;
@@ -46,14 +41,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
 
+    private MainPresenter mMainPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setToolbar();
-        createSearchView();
-        setProgressBarColor();
+        mMainPresenter = new MainPresenterImpl(this);
+        mMainPresenter.onCreate();
     }
 
     @Override
@@ -61,56 +57,55 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
         startActivity(TrackDetailActivity.createExplicitIntent(this, track));
     }
 
-    private void setToolbar() {
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return mMainPresenter.onQueryTextSubmit(query);
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+    @Override
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setToolbar() {
         setSupportActionBar(mToolbar);
     }
 
-    private void createSearchView() {
+    @Override
+    public void showSearchView() {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if (Utils.hasConnection(getApplicationContext())) {
-                    showProgressBar();
-                    getDataFromServer(query);
-                    mSearchView.clearFocus();
-                } else {
-                    showNoConnectionMessage();
-                }
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+        mSearchView.setOnQueryTextListener(this);
     }
 
-    private void getDataFromServer(String query) {
-        TrackService service = ApiClient.getClient().create(TrackService.class);
-        Call<TracksResponse> responseCall = service.getTracks(query);
-
-        responseCall.enqueue(new Callback<TracksResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<TracksResponse> call, @NonNull Response<TracksResponse> response) {
-                TracksResponse tracksResponse = response.body();
-                if (tracksResponse != null) {
-                    startFragment(tracksResponse);
-                    hideProgressBar();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<TracksResponse> call, @NonNull Throwable t) {
-                Log.e(TAG, "failure " + t.getMessage());
-            }
-        });
+    @Override
+    public void clearSearchViewFocus() {
+        mSearchView.clearFocus();
     }
 
-    private void startFragment(TracksResponse response) {
+    @Override
+    public void showNoConnectionError() {
+        showToast(R.string.no_connection);
+    }
+
+    @Override
+    public void showServiceUnavailableError() {
+        showToast(R.string.error_message);
+    }
+
+    @Override
+    public void showTracksFragment(TracksResponse response) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.container, MainFragment.newInstance(response))
@@ -118,19 +113,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
                 .commit();
     }
 
-    private void showNoConnectionMessage() {
-        Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_LONG).show();
-    }
-
-    private void setProgressBarColor() {
+    @Override
+    public void setProgressColor() {
         mProgressBar.getIndeterminateDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
     }
 
-    private void showProgressBar() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgressBar() {
-        mProgressBar.setVisibility(View.GONE);
+    private void showToast(int messageResId) {
+        Toast.makeText(this, getString(messageResId), Toast.LENGTH_LONG).show();
     }
 }
