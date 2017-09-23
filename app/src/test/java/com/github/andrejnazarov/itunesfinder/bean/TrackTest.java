@@ -36,13 +36,11 @@ public class TrackTest {
     }
 
     private Track getTrack() {
-        Track track = new Track();
-        track.setArtistName("Eminem");
-        track.setArtistViewUrl("https://itunes.apple.com/us/artist/eminem/id111051?uo=4");
-        track.setCoverUrl("http://is5.mzstatic.com/image/thumb/Music/v4/54/4b/00/544b0075-6ef9-5fb6-8040-0bcd9f0d5766/source/100x100bb.jpg");
-        track.setTrackName("Lose Yourself");
-        track.setTrackPreviewUrl("http://a1693.phobos.apple.com/us/r30/Music/v4/f1/7b/d6/f17bd6e3-55c0-b7e0-9863-bc522900e950/mzaf_5153970109972844579.aac.m4a");
-        track.setTrackPrice(1.29);
-        return track;
+       return new Track("Eminem",
+               "Lose Yourself",
+                "https://itunes.apple.com/us/artist/eminem/id111051?uo=4",
+               "http://a1693.phobos.apple.com/us/r30/Music/v4/f1/7b/d6/f17bd6e3-55c0-b7e0-9863-bc522900e950/mzaf_5153970109972844579.aac.m4a",
+               "http://is5.mzstatic.com/image/thumb/Music/v4/54/4b/00/544b0075-6ef9-5fb6-8040-0bcd9f0d5766/source/100x100bb.jpg",
+                1.29);
     }
 }

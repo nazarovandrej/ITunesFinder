@@ -38,10 +38,7 @@ public class TracksResponseTest {
     }
 
     private TracksResponse getExpectedObject() {
-        TracksResponse response = new TracksResponse();
-        response.setTrackCount(2);
-        response.setTracks(getTracks());
-        return response;
+        return new TracksResponse(getTracks(), 2);
     }
 
     private List<Track> getTracks() {
@@ -74,13 +71,11 @@ public class TracksResponseTest {
                            String previewUrl,
                            String coverUrl,
                            double price) {
-        Track track = new Track();
-        track.setArtistName(artistName);
-        track.setTrackName(trackName);
-        track.setArtistViewUrl(artistViewUrl);
-        track.setTrackPreviewUrl(previewUrl);
-        track.setCoverUrl(coverUrl);
-        track.setTrackPrice(price);
-        return track;
+        return new Track(artistName,
+                trackName,
+                artistViewUrl,
+                previewUrl,
+                coverUrl,
+                price);
     }
 }

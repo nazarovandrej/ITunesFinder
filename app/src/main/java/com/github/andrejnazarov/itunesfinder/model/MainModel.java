@@ -68,6 +68,7 @@ public class MainModel {
             @Override
             public void onFailure(Call<TracksResponse> call, Throwable t) {
                 mMainPresenter.showServiceUnavailableError();
+                mMainPresenter.hideProgress();
             }
         });
     }
